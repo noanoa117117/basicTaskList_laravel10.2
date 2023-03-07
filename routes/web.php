@@ -14,11 +14,19 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', function () {
-    return view('welcome');
+    return view('tasks');
 });
 
 Route::post('/task', function (Request $request) {
-    //
+    $validator = Validator::make($request->all(), [
+        'name' => 'required|max:255',
+    ]);
+    if($validator->fails()){
+        return redirect('/')
+            ->withInput()
+            ->withErrores($validator);
+    }
+    //TODO: add new task
 });
 
 Route::delete('/task/{task}', function (Task $task) {
