@@ -1,6 +1,7 @@
 <?php
-
+use App\Models\Task; 
 use Illuminate\Support\Facades\Route;
+use Illuminate\Http\Request;
 
 /*
 |--------------------------------------------------------------------------
@@ -14,7 +15,11 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', function () {
-    return view('tasks');
+    $tasks = Task::orderBy('created_at', 'asc')->get();//ソート済みのタスク
+    
+    return view('tasks',[
+        'tasks'=> $tasks
+    ]);
 });
 
 Route::post('/task', function (Request $request) {
@@ -26,9 +31,15 @@ Route::post('/task', function (Request $request) {
             ->withInput()
             ->withErrores($validator);
     }
-    //TODO: add new task
+    $task = new Task;
+    $task->name = $request->input('name');
+    $task->save();
+
+    return redirect('/');
 });
 
 Route::delete('/task/{task}', function (Task $task) {
-    //
+    $task->delete(); //暗黙の結合
+
+    return redirect('/');
 });
