@@ -1,5 +1,5 @@
 <?php
-use App\Models\Task; 
+use App\Models\Timeline; 
 use Illuminate\Support\Facades\Route;
 use Illuminate\Http\Request;
 
@@ -14,15 +14,18 @@ use Illuminate\Http\Request;
 |
 */
 
+/*一覧画面*/ 
 Route::get('/', function () {
-    $tasks = Task::orderBy('created_at', 'asc')->get();//ソート済みのタスク
+    /*Timelineはmodel*/ 
+    $timelines = Timeline::orderBy('created_at', 'asc')->get();//ソート済みのタスク
     
-    return view('tasks',[
-        'tasks'=> $tasks
+    return view('timeline',[
+        'timeline'=> $timelines
     ]);
 });
 
-Route::post('/task', function (Request $request) {
+/*投稿*/ 
+Route::post('/timeline', function (Request $request) {
     $validator = Validator::make($request->all(), [
         'name' => 'required|max:255',
     ]);
@@ -31,15 +34,27 @@ Route::post('/task', function (Request $request) {
             ->withInput()
             ->withErrores($validator);
     }
-    $task = new Task;
-    $task->name = $request->input('name');
-    $task->save();
+    $timeline = new Timeline;
+    $timeline->name = $request->input('name');
+    $timeline->save();
 
     return redirect('/');
 });
 
-Route::delete('/task/{task}', function (Task $task) {
-    $task->delete(); //暗黙の結合
+/*詳細画面処理*/ 
+Route::get('/show/{id}', [BookController::class, 'show'])->name('book.show');
+
+/*delete処理*/ 
+Route::delete('/timeline/{timeline}', function (Timeline $timeline) {
+    $timeline->delete(); //暗黙の結合
 
     return redirect('/');
 });
+
+Auth::routes();
+
+Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+
+Auth::routes();
+
+Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
