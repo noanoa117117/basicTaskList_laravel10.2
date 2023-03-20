@@ -1,7 +1,9 @@
 <?php
-use App\Models\Timeline; 
+use App\Models\Timeline;
+use App\Http\Controllers\HomeController;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 /*
 |--------------------------------------------------------------------------
@@ -13,36 +15,39 @@ use Illuminate\Http\Request;
 | be assigned to the "web" middleware group. Make something great!
 |
 */
+Auth::routes();
+Route::get('/', function () {
+    $tasks = Timeline::orderBy('created_at', 'asc')->get();
+    
+    return view('timeline', [
+        'tweets' => $tasks
+    ]);
+});
 
 /*一覧画面*/ 
-Route::get('/', function () {
-    /*Timelineはmodel*/ 
-    $timelines = Timeline::orderBy('created_at', 'asc')->get();//ソート済みのタスク
-    
-    return view('timeline',[
-        'timeline'=> $timelines
-    ]);
-});
-
+Route::get('/home',[HomeController::class,'index'])->name('timeline');
+Route::get('/timeline', [HomeController::class, 'timeLineList'])->name('timeline');
 /*投稿*/ 
-Route::post('/timeline', function (Request $request) {
-    $validator = Validator::make($request->all(), [
-        'name' => 'required|max:255',
-    ]);
-    if($validator->fails()){
-        return redirect('/')
-            ->withInput()
-            ->withErrores($validator);
-    }
-    $timeline = new Timeline;
-    $timeline->name = $request->input('name');
-    $timeline->save();
+ Route::post('/timeline', [HomeController::class, 'sendPost'])->name('timeline');
 
-    return redirect('/');
-});
+// Route::post('/timeline', function (Request $request) {
+//     $validator = Validator::make($request->all(), [
+//         'name' => 'required|max:255|min:1',
+//     ]);
+//     if($validator->fails()){
+//         return redirect('/')
+//             ->withInput()
+//             ->withErrores($validator);
+//     }
+//     $timeline = new Timeline;
+//     $timeline->name = $request->input('name');
+//     $timeline->save();
+
+//     return redirect('/');
+// });
 
 /*詳細画面処理*/ 
-Route::get('/show/{id}', [BookController::class, 'show'])->name('book.show');
+Route::get('/show/{timelineId}', [DetailController::class, 'detail'])->name('detail');
 
 /*delete処理*/ 
 Route::delete('/timeline/{timeline}', function (Timeline $timeline) {
@@ -50,6 +55,13 @@ Route::delete('/timeline/{timeline}', function (Timeline $timeline) {
 
     return redirect('/');
 });
+
+
+
+
+Auth::routes();
+
+Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 
 Auth::routes();
 

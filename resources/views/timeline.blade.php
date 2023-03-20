@@ -2,6 +2,7 @@
 <!--親ページへ-->
 @section('content')
     <!--ここからendsecまでの内容が挿入-->
+
     <div class="con-sm-offset-2 col-sm-8">
         <div class="panel panel-default">
             <div class="panel-heading">
@@ -9,35 +10,37 @@
             </div>
 
             <div class="panel-body">
-                <!--Display Validation Errors入力値エラーを統一して遷移-->
-                @include('common.errors')
 
-                <!--new task form-->
-
-                <form action="{{ url('timeline') }}" method="POST" class="form-horizontal">
-                    {{ csrf_field() }}
-
-                    <!--task Name-->
-                    <div class="form-group">
-                        <label for="task-name" class="col-sm-3 control-label">Content Body</label>
-                        <div class="col-sm-6">
-                            <input type="text" name="name" id="task-name"class="form-control">
-                        </div>
+                <!--new task form エスケープ無効-->
+                <!--<form action="{{ url('/timeline') }}" method="POST" class="form-horizontal">-->
+                {!! Form::open(['route' => 'timeline', 'method' => 'POST']) !!}
+                {{ csrf_field() }}
+                <!--content body-->
+                <div class="form-group">
+                    <!--<label for="task-name" class="col-sm-3 control-label">Content Body</label> -->
+                    {{ Form::label('task-name', 'Content Body', ['class' => 'col-sm-3 control-label']) }}
+                    <div class="col-sm-6">
+                        <!--<input type="text" name="name" value="@{{ old('name') }}" id="tweet_body"
+                                                    class="form-control" /> -->
+                        {{ Form::text('tweet', null, ['class' => 'form-control']) }}
                     </div>
+                    @if ($errors->has('tweet'))
+                        <p class="alert alert-danger">{{ $errors->first('tweet') }}
+                    @endif
+                </div>
 
-                    <!--Add Task Button -->
-                    <div class="form-group">
-                        <div class="col-sm-offset-3 col-sm-6">
-                            <button type="subit" class="btn btn-default">
-                                <i class="fa fa-btn fa-plus">Lanch tweet! hah</i>
-                            </button>
-                        </div>
+                <!--Add lanch Button -->
+                <div class="form-group">
+                    <div class="col-sm-offset-3 col-sm-6">
+                        <!-- <button type="subit" class="btn btn-default"> -->
+                        {{ Form::submit('Lanch tweet!', ['class' => 'btn btn-default']) }}
                     </div>
-                </form>
+                </div>
+                {!! Form::close() !!}
             </div>
         </div>
         <!--current tasks-->
-        @if (count($timeline) > 0)
+        @if (count($tweets) > 0)
             <div class="panel panel-default">
                 <div class="panel-heading">
                     Current TL
@@ -46,10 +49,10 @@
                 <div class="panel-body">
                     <table class="table-striped task-table table">
                         <tbody>
-                            @foreach ($timeline as $tl)
+                            @foreach ($tweets as $tl)
                                 <tr>
                                     <td class="table-text">
-                                        <div>{{ $tl->name }}</div>
+                                        <div>{{ $tl->tweet }}</div>
                                     </td>
                                 <tr>
                                     <!--Delete Button　<a href="" class="btn btn-primary">詳細</a>　-->

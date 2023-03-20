@@ -19,7 +19,7 @@
             <!--navbar-->
             <div class="navbar-header">
                 <a class="navbar-brand" href="{{ url('/') }}">
-                    UnReal Twitter site
+                    Unlike Twitter-ish site
                 </a>
             </div>
             <!--ログアウトのpath調整が必要-->

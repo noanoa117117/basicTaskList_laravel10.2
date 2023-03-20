@@ -7,5 +7,9 @@ use Illuminate\Database\Eloquent\Model;
 
 class Timeline extends Model
 {
-    use HasFactory;
+    protected $fillable = [
+        'user_id',
+        'name',
+        'tweet',
+    ];
 }

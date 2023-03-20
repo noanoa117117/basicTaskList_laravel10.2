@@ -12,8 +12,10 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('timelines', function (Blueprint $table) {
-            $table->id();
-            $table->string('name');/*追加*/
+            $table->bigIncrements('id');
+            $table->Integer('user_id');
+            $table->text('name');
+            $table->text('tweet');
             $table->timestamps();
         });
     }
