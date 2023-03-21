@@ -17,16 +17,18 @@
                 {{ csrf_field() }}
                 <!--content body-->
                 <div class="form-group">
+
                     <!--<label for="task-name" class="col-sm-3 control-label">Content Body</label> -->
                     {{ Form::label('task-name', 'Content Body', ['class' => 'col-sm-3 control-label']) }}
                     <div class="col-sm-6">
                         <!--<input type="text" name="name" value="@{{ old('name') }}" id="tweet_body"
-                                                    class="form-control" /> -->
+                                                                                                                                                                    class="form-control" /> -->
                         {{ Form::text('tweet', null, ['class' => 'form-control']) }}
+                        @if ($errors->has('tweet'))
+                            <p class="alert alert-danger">{{ $errors->first('tweet') }}
+                        @endif
                     </div>
-                    @if ($errors->has('tweet'))
-                        <p class="alert alert-danger">{{ $errors->first('tweet') }}
-                    @endif
+
                 </div>
 
                 <!--Add lanch Button -->
@@ -51,24 +53,21 @@
                         <tbody>
                             @foreach ($tweets as $tl)
                                 <tr>
-                                    <td class="table-text">
-                                        <div>{{ $tl->tweet }}</div>
-                                    </td>
-                                <tr>
-                                    <!--Delete Button　<a href="" class="btn btn-primary">詳細</a>　-->
-                                    <td>
-                                        <form action="{{ url('timeline/' . $tl->id) }}" method="POST">
-                                            {{ csrf_field() }}
-                                            {{ method_field('DELETE') }}
-                                            <!--と同じ<input type="hidden" name="_method" value="DELETE">-->
-
-                                            <button type="submit" class="btn btn-link pull-right navbar-brand">
-                                                <i class="fa fa-trash">Delete</i>
-                                            </button>
-                                        </form>
-                                    </td>
+                                    <td><strong>{{ $tl->name }}</strong>さん</td>
                                 </tr>
-                                <td>&nbsp;</td>
+                                <tr>
+
+                                    <td class="table-text">
+
+                                        <div>{{ $tl->tweet }} </div>
+                                        <p class="text-right">{{ $tl->created_at }}</p>
+                                        <a href="{{ route('detail', ['id' => $tl->id]) }}"
+                                            class="btn btn-primary pull-right">detail</a>
+
+                                    </td>
+
+
+                                    <td>&nbsp;</td>
                                 </tr>
                             @endforeach
                         </tbody>

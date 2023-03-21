@@ -7,10 +7,10 @@ use Illuminate\Http\Request;
 
 class DetailController extends Controller
 {
-    public function detail($timelineId){
+    public function detail($id){
         
-        $timeline = Timeline::find($timelineId);
-            return view('detail',compact('timeline'));
+        $detail = Timeline::find($id)->first();
+            return view('detail',compact('detail'));
         }
 }
 

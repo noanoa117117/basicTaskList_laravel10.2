@@ -40,7 +40,7 @@ class HomeController extends Controller
     public function sendPost(Request $req){
        
             $req->validate([
-                'tweet' => 'required|max:50',
+                'tweet' => 'required|max:15',
             ]);
 
             Timeline::create([

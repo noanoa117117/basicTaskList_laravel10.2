@@ -2,38 +2,65 @@
 @section('content')
 
     <head>
-        <title>ユーザー詳細</title>
+        <title>tweet詳細</title>
     </head>
 
     <body>
-        <div layout:fragment="content">
-            <div class="header border-buttom">
-                <h1 class="h2">ユーザー詳細</h1>
-            </div>
-            <form id="user-detail-form" method="post" th:action="@{/user/detail}" class="form-signup"
-                th:object="${userDetailForm}">
-                <input type="hidden" th:field="*{userId}" />
-                <!-- ユーザー詳細情報 -->
-                <table class="table-striped table-bordered table-hover table">
-                    <tbody>
-                        <tr>
-                            <th class="w-25">ユーザーID</th>
-                            <td th:text="*{userId}"></td>
-                        </tr>
 
-
-
-                    </tbody>
-                </table>
-                <!-- ボタンエリア -->
-                <div class="text-center">
-                    <!-- 削除ボタン -->
-                    <button class="btn btn-danger" type="submit" name="delete">
-                        削除</button>
-                    <!-- 更新ボタン-->
-                    <button class="btn btn-primary" type="submit" name="update">
-                        更新</button>
-                </div>
+        <div class="header border-buttom">
+            <h1 class="h2">tweets内容</h1>
+        </div>
+        <div class="text-right">
+            <!-- 削除ボタン -->
+            <form action="{{ url('timeline/' . $detail->id) }}" method="POST">
+                {{ csrf_field() }}
+                {{ method_field('DELETE') }}
+                <button class="btn btn-danger" type="submit" name="delete">
+                    Delete</button>
             </form>
+        </div>
+
+        <!-- ユーザー詳細情報 -->
+        <table class="table-striped table-bordered table-hover table">
+            <tbody>
+
+                <tr>
+                    <td><strong>{{ $detail->name }}</strong>さん
+                    </td>
+                </tr>
+                <tr>
+                    <td class="table-text">
+                        <div>{{ $detail->tweet }} </div>
+                        <p class="text-right">{{ $detail->created_at }}</p>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <form>
+                            <!-- 更新ボタン-->
+
+                            <label for="edit" class="col-sm-3 control-label">更新内容</label>
+                            <div class="col-sm-6">
+                                <input type="text" name="update" id="update" class="form-control">
+
+                            </div>
+                            <div class="text-left">
+                                <form action="{{ url('timeline/' . $detail->id) }}" method="POST">
+                                    {{ csrf_field() }}
+                                    {{ method_field('UPDATE') }}
+                                    <button class="btn btn-primary" type="submit" name="update">
+                                        edit</button>
+                                </form>
+                            </div>
+                    </td>
+                </tr>
+
+            </tbody>
+        </table>
+        <!-- ボタンエリア -->
+
+
+
+
         </div>
     @endsection

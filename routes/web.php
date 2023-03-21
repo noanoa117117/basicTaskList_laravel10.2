@@ -1,6 +1,7 @@
 <?php
 use App\Models\Timeline;
 use App\Http\Controllers\HomeController;
+use App\Http\Controllers\DetailController;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -22,51 +23,34 @@ Route::get('/', function () {
     return view('timeline', [
         'tweets' => $tasks
     ]);
-});
+}); 
 
-/*一覧画面*/ 
-Route::get('/home',[HomeController::class,'index'])->name('timeline');
-Route::get('/timeline', [HomeController::class, 'timeLineList'])->name('timeline');
+/*一覧画面
+
+Route::get('/', [HomeController::class, 'timeLineList'])->name('timeline');
+*/
 /*投稿*/ 
  Route::post('/timeline', [HomeController::class, 'sendPost'])->name('timeline');
 
-// Route::post('/timeline', function (Request $request) {
-//     $validator = Validator::make($request->all(), [
-//         'name' => 'required|max:255|min:1',
-//     ]);
-//     if($validator->fails()){
-//         return redirect('/')
-//             ->withInput()
-//             ->withErrores($validator);
-//     }
-//     $timeline = new Timeline;
-//     $timeline->name = $request->input('name');
-//     $timeline->save();
-
-//     return redirect('/');
-// });
-
 /*詳細画面処理*/ 
-Route::get('/show/{timelineId}', [DetailController::class, 'detail'])->name('detail');
+Route::get('/show/{id}', [DetailController::class, 'detail'])->name('detail');
+
+/*update処理 */
+Route::post('timeline/{id}',function(Request $req){
+        $edit = Timeline::find($req->id);
+        $edit->tweet=$req->update;
+        $edit->update();
+        return redirect('/');
+    });
+    
 
 /*delete処理*/ 
-Route::delete('/timeline/{timeline}', function (Timeline $timeline) {
-    $timeline->delete(); //暗黙の結合
-
+Route::delete('/timeline/{id}', function (Request $req) {
+    Timeline::find($req->id)->delete();
     return redirect('/');
 });
 
 
 
-
-Auth::routes();
-
-Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
-
-Auth::routes();
-
-Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
-
-Auth::routes();
 
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
