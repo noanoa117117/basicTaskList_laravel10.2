@@ -36,12 +36,7 @@ Route::get('/', [HomeController::class, 'timeLineList'])->name('timeline');
 Route::get('/show/{id}', [DetailController::class, 'detail'])->name('detail');
 
 /*update処理 */
-Route::post('timeline/{id}',function(Request $req){
-        $edit = Timeline::find($req->id);
-        $edit->tweet=$req->update;
-        $edit->update();
-        return redirect('/');
-    });
+Route::post('timeline/edit/{id}',[DetailController::class, 'update']);
     
 
 /*delete処理*/ 

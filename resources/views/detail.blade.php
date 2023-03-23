@@ -36,31 +36,24 @@
                 </tr>
                 <tr>
                     <td>
-                        <form>
-                            <!-- 更新ボタン-->
 
-                            <label for="edit" class="col-sm-3 control-label">更新内容</label>
-                            <div class="col-sm-6">
-                                <input type="text" name="update" id="update" class="form-control">
+                        <!-- 更新ボタン-->
 
-                            </div>
-                            <div class="text-left">
-                                <form action="{{ url('timeline/' . $detail->id) }}" method="POST">
-                                    {{ csrf_field() }}
-                                    {{ method_field('UPDATE') }}
-                                    <button class="btn btn-primary" type="submit" name="update">
-                                        edit</button>
-                                </form>
-                            </div>
+                        <label for="edit" class="col-sm-3 control-label">更新内容</label>
+                        <div class="text-left">
+                            <form action="{{ url('timeline/edit/' . $detail->id) }}" method="POST">
+                                {{ csrf_field() }}
+                                <input type="text" name="update" value="{{ $detail->tweet }}">
+                                <button class="btn btn-primary" type="submit">edit</button>
+                            </form>
+                            @if ($errors->has('update'))
+                                <p class="alert alert-danger">{{ $errors->first('update') }}
+                            @endif
+                        </div>
                     </td>
                 </tr>
 
             </tbody>
         </table>
-        <!-- ボタンエリア -->
-
-
-
-
         </div>
     @endsection
