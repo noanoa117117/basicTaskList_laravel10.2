@@ -13,9 +13,9 @@ return new class extends Migration
     {
         Schema::create('timelines', function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->Integer('user_id');
-            $table->text('name');
-            $table->text('tweet');
+            $table->Integer('user_id');   
+            $table->string('name');
+            $table->text('subtitle');
             $table->timestamps();
         });
     }

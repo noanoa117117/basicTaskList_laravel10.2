@@ -23,8 +23,8 @@
                 </a>
             </div>
             <!--ログアウトのpath調整が必要-->
-            <form method="post" action="{{ url('/logout') }}">
-                <button class="btn btn-link pull-right navbar-brand" type="submit">Logout?!
+            <form method="post" action="{{ route('logout') }}">
+                <button class="btn btn-link pull-right navbar-brand" type="submit">Logout
                 </button>
             </form>
         </div>

@@ -27,10 +27,10 @@ class HomeController extends Controller
     public function index()
     {
         return view('home');
+        
     }
 
     public function timeLineList(){
-
         $timelines = Timeline::latest()->get();
         return view('timeline',[
             'tweets' => $timelines,
@@ -40,13 +40,13 @@ class HomeController extends Controller
     public function sendPost(Request $req){
        
             $req->validate([
-                'tweet' => 'required|max:15',
+                'subtitle' => 'required|max:50',
             ]);
 
             Timeline::create([
                 'user_id' => Auth::user()->id,
                 'name' => Auth::user()->name,
-                'tweet' => $req->tweet,
+                'subtitle' => $req->subtitle,
             ]);
 
              return back();

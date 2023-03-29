@@ -8,8 +8,10 @@ use Illuminate\Http\Request;
 class DetailController extends Controller
 {
     public function detail($id){
+        //$idInt=(int)$id;
+        $detail = Timeline::find($id);
         
-        $detail = Timeline::find($id)->first();
+        //$detail = \DB::select('select * from timelines where post_id', '=' ,$idInt)
             return view('detail',compact('detail'));
         }
 
@@ -25,6 +27,10 @@ class DetailController extends Controller
         return redirect('/');
         
     }
-    
+
+    public function delete(Request $req) {
+    Timeline::find($req->id)->delete();
+    return redirect('/');
+    }
 }
 

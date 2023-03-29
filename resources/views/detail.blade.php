@@ -30,7 +30,7 @@
                 </tr>
                 <tr>
                     <td class="table-text">
-                        <div>{{ $detail->tweet }} </div>
+                        <div>{{ $detail->subtitle }} </div>
                         <p class="text-right">{{ $detail->created_at }}</p>
                     </td>
                 </tr>
@@ -43,7 +43,7 @@
                         <div class="text-left">
                             <form action="{{ url('timeline/edit/' . $detail->id) }}" method="POST">
                                 {{ csrf_field() }}
-                                <input type="text" name="update" value="{{ $detail->tweet }}">
+                                <input type="text" name="update" value="{{ $detail->subtitle }}">
                                 <button class="btn btn-primary" type="submit">edit</button>
                             </form>
                             @if ($errors->has('update'))

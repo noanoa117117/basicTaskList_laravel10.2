@@ -17,35 +17,43 @@ use Illuminate\Support\Facades\Auth;
 |
 */
 Auth::routes();
+
+
+Route::get('/', function () {
+    $tasks = Timeline::orderBy('created_at', 'desc')->get();
+    return view('timeline', [
+        'subtitles' => $tasks
+    ]);
+}); 
+/*ログアウト*/
+ Route::get('/logout', 'Auth\LoginController@logout');
+
+/*ログイン後
 Route::get('/', function () {
     $tasks = Timeline::orderBy('created_at', 'asc')->get();
     
     return view('timeline', [
         'tweets' => $tasks
     ]);
-}); 
+}); */
 
-/*一覧画面
+/*値受け渡しtest
 
-Route::get('/', [HomeController::class, 'timeLineList'])->name('timeline');
+Route::get('/', function(){
+    $test = echo $
+});
 */
 /*投稿*/ 
  Route::post('/timeline', [HomeController::class, 'sendPost'])->name('timeline');
 
-/*詳細画面処理*/ 
+/*detail画面遷移*/ 
 Route::get('/show/{id}', [DetailController::class, 'detail'])->name('detail');
 
-/*update処理 */
+/*detail->update処理 */
 Route::post('timeline/edit/{id}',[DetailController::class, 'update']);
     
-
-/*delete処理*/ 
-Route::delete('/timeline/{id}', function (Request $req) {
-    Timeline::find($req->id)->delete();
-    return redirect('/');
-});
-
-
+/*detail->delete処理*/ 
+Route::delete('/timeline/{id}',[DetailController::class, 'delete']);
 
 
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
