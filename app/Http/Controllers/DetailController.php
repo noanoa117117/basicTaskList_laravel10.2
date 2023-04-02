@@ -10,19 +10,19 @@ class DetailController extends Controller
     public function detail($id){
         //$idInt=(int)$id;
         $detail = Timeline::find($id);
-        
-        //$detail = \DB::select('select * from timelines where post_id', '=' ,$idInt)
-            return view('detail',compact('detail'));
-        }
+        return view('detail',compact('detail'));
+    }
 
 
     public function update(Request $req){
         
      $req->validate([
-                'update' => 'required|max:15',
+        'title' => 'required|max:50',
+        'update' => 'max:50',
      ]);
         $edit = Timeline::find($req->id);
-        $edit->tweet=$req->update;
+        $edit->subtitle=$req->title;
+        $edit->body=$req->update;
         $edit->update();
         return redirect('/');
         

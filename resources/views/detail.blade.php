@@ -1,14 +1,20 @@
-@extends('layouts.header')
+@extends('layouts.app')
 @section('content')
 
     <head>
-        <title>tweet詳細</title>
+        <title>詳細</title>
+        <link href="{{ asset('css/app.css') }}" rel="stylesheet">
     </head>
 
     <body>
+        <button type="button"
+            class="m-5 cursor-pointer rounded-md bg-blue-500 p-3 text-base font-semibold text-white shadow-md ring-2 ring-blue-200 hover:bg-blue-700">
+            テスト
+        </button>
+
 
         <div class="header border-buttom">
-            <h1 class="h2">tweets内容</h1>
+            <h1 class="h2">詳細</h1>
         </div>
         <div class="text-right">
             <!-- 削除ボタン -->
@@ -26,31 +32,42 @@
 
                 <tr>
                     <td><strong>{{ $detail->name }}</strong>さん
-                    </td>
-                </tr>
-                <tr>
-                    <td class="table-text">
-                        <div>{{ $detail->subtitle }} </div>
                         <p class="text-right">{{ $detail->created_at }}</p>
                     </td>
                 </tr>
-                <tr>
-                    <td>
+                <form action="{{ url('timeline/edit/' . $detail->id) }}" method="POST">
+                    <tr>
+                        <td>
+                            <!--投稿内容-->
+                            <label for="title" class="col-md-4 col-form-label text-md-end"></label>
+                            <input name="title" value="{{ $detail->subtitle }}" type="text">
 
-                        <!-- 更新ボタン-->
-
-                        <label for="edit" class="col-sm-3 control-label">更新内容</label>
-                        <div class="text-left">
-                            <form action="{{ url('timeline/edit/' . $detail->id) }}" method="POST">
-                                {{ csrf_field() }}
-                                <input type="text" name="update" value="{{ $detail->subtitle }}">
-                                <button class="btn btn-primary" type="submit">edit</button>
-                            </form>
-                            @if ($errors->has('update'))
-                                <p class="alert alert-danger">{{ $errors->first('update') }}
+                            @if ($errors->has('title'))
+                                <p class="error-message">{{ $errors->first('title') }}</p>
                             @endif
-                        </div>
-                    </td>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <!-- 更新ボタン-->
+                            <label for="edit" class="col-sm-3 control-label">詳細memo内容確認 </label>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <div class="text-left">
+                                {{ csrf_field() }}
+                                <textarea name="update" class="form-textarea" value="{{ $detail->body }}" placeholder="{{ $detail->body }}"></textarea>
+
+                                {{-- <input type="text"
+                                    name="update" value="{{ $detail->body }}">  --}}
+                                <button class="btn btn-primary" type="submit">edit</button>
+                </form>
+                @if ($errors->has('update'))
+                    <p class="alert alert-danger">{{ $errors->first('update') }}
+                @endif
+                </div>
+                </td>
                 </tr>
 
             </tbody>

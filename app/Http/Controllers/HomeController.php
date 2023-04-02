@@ -24,18 +24,22 @@ class HomeController extends Controller
      *
      * @return \Illuminate\Contracts\Support\Renderable
      */
-    public function index()
-    {
-        return view('home');
-        
-    }
 
-    public function timeLineList(){
-        $timelines = Timeline::latest()->get();
-        return view('timeline',[
-            'tweets' => $timelines,
+     
+    public function timelineHome()
+    {
+        $tasks = Timeline::orderBy('created_at', 'desc')->get();
+        return view('timeline', [
+            'subtitles' => $tasks
         ]);
     }
+
+    // public function timeLineList(){
+    //     $timelines = Timeline::latest()->get();
+    //     return view('timeline',[
+    //         'tweets' => $timelines,
+    //     ]);
+    // }
 
     public function sendPost(Request $req){
        

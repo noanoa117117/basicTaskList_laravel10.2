@@ -16,6 +16,7 @@ return new class extends Migration
             $table->Integer('user_id');   
             $table->string('name');
             $table->text('subtitle');
+            $table->text('body')->nullable();
             $table->timestamps();
         });
     }
