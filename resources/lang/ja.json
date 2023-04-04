@@ -4,6 +4,9 @@
     "Email Address":"Emailアドレス",
     "Password":"パスワード",
     "Name":"名前",
-    "Confirm Password":"パスワード再入力"
-    
+    "Confirm Password":"パスワード再入力",
+    "Dashboard":"UserTask一覧",
+    "sendreq":"Task送信",
+    "showreq":"送信済みTask一覧",
+    "doneList":"Doneリスト"
 }

@@ -24,13 +24,13 @@ class DetailController extends Controller
         $edit->subtitle=$req->title;
         $edit->body=$req->update;
         $edit->update();
-        return redirect('/');
+        return redirect('/home');
         
     }
 
     public function delete(Request $req) {
     Timeline::find($req->id)->delete();
-    return redirect('/');
+    return redirect('/home');
     }
 }
 

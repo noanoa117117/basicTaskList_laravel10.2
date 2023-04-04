@@ -1,28 +1,18 @@
-@extends('layouts.app')
-@section('content')
-
-    <head>
-        <title>詳細</title>
-        <link href="{{ asset('css/app.css') }}" rel="stylesheet">
-    </head>
+<x-app-layout>
 
     <body>
-        <button type="button"
-            class="m-5 cursor-pointer rounded-md bg-blue-500 p-3 text-base font-semibold text-white shadow-md ring-2 ring-blue-200 hover:bg-blue-700">
-            テスト
-        </button>
-
-
         <div class="header border-buttom">
-            <h1 class="h2">詳細</h1>
+            <h1 class="flex items-center break-normal px-2 py-8 font-sans text-xl font-bold text-indigo-500 md:text-2xl">
+                編集画面
+            </h1>
         </div>
         <div class="text-right">
             <!-- 削除ボタン -->
             <form action="{{ url('timeline/' . $detail->id) }}" method="POST">
                 {{ csrf_field() }}
                 {{ method_field('DELETE') }}
-                <button class="btn btn-danger" type="submit" name="delete">
-                    Delete</button>
+                <button class="rounded bg-red-400 py-2 px-4 font-semibold text-white" type="submit" name="delete">
+                    消去</button>
             </form>
         </div>
 
@@ -31,14 +21,17 @@
             <tbody>
 
                 <tr>
-                    <td><strong>{{ $detail->name }}</strong>さん
-                        <p class="text-right">{{ $detail->created_at }}</p>
+                    <td>
+                        <p>{{ $detail->created_at }}</p>
+                        <strong>{{ $detail->name }}</strong>さん
                     </td>
                 </tr>
                 <form action="{{ url('timeline/edit/' . $detail->id) }}" method="POST">
+
                     <tr>
                         <td>
                             <!--投稿内容-->
+                            <p>タイトル</p>
                             <label for="title" class="col-md-4 col-form-label text-md-end"></label>
                             <input name="title" value="{{ $detail->subtitle }}" type="text">
 
@@ -50,18 +43,19 @@
                     <tr>
                         <td>
                             <!-- 更新ボタン-->
-                            <label for="edit" class="col-sm-3 control-label">詳細memo内容確認 </label>
+                            <label for="edit" class="col-sm-3 control-label">詳細内容追加 </label>
                         </td>
                     </tr>
                     <tr>
                         <td>
                             <div class="text-left">
                                 {{ csrf_field() }}
-                                <textarea name="update" class="form-textarea" value="{{ $detail->body }}" placeholder="{{ $detail->body }}"></textarea>
+                                <textarea name="update" cols="50" rows="10" class="form-textarea">{{ $detail->body }}</textarea>
 
                                 {{-- <input type="text"
                                     name="update" value="{{ $detail->body }}">  --}}
-                                <button class="btn btn-primary" type="submit">edit</button>
+                                <button class="rounded bg-sky-400 py-2 px-4 font-semibold text-white"
+                                    type="submit">編集</button>
                 </form>
                 @if ($errors->has('update'))
                     <p class="alert alert-danger">{{ $errors->first('update') }}
@@ -73,4 +67,4 @@
             </tbody>
         </table>
         </div>
-    @endsection
+        </x-app>

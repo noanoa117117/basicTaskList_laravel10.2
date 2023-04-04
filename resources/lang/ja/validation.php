@@ -146,7 +146,7 @@ return [
     */
 
     'attributes' => [
-        'tweet' => '戯言',
+        'subtitle' => 'タイトル',
         'update' => '更新内容'
     ],
 

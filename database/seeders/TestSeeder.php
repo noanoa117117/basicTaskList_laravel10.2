@@ -15,8 +15,7 @@ class TestSeeder extends Seeder
     public function run(): void
     {
         Timeline::create([
-            'id'=>'1',
-            'user_id'=>'1',
+            'id'=>'1',  
               'name'=>'TestUser',
               'subtitle'=>'あああああああ',
         ]);
@@ -24,6 +23,18 @@ class TestSeeder extends Seeder
             
             'name'=>'TestUser',
             'email'=>'test@test.com',
+            'password'=>\Hash::make('12345678'),
+        ]);
+
+         Timeline::create([
+            'id'=>'2',  
+              'name'=>'madship',
+              'subtitle'=>'いいね',
+        ]);
+        User::create([
+            
+            'name'=>'TestUser',
+            'email'=>'test1@test.com',
             'password'=>\Hash::make('12345678'),
         ]);
     }

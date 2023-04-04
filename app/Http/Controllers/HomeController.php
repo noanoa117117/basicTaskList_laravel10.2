@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 use App\Models\Timeline;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Foundation\Validation\ValidatesRequests;
+use Illuminate\Support\Facades\DB;
+
 
 use Illuminate\Http\Request;
 
@@ -28,18 +30,11 @@ class HomeController extends Controller
      
     public function timelineHome()
     {
-        $tasks = Timeline::orderBy('created_at', 'desc')->get();
-        return view('timeline', [
+        $tasks = Timeline::orderBy('created_at', 'asc')->get();
+        return view('2timeline', [
             'subtitles' => $tasks
         ]);
     }
-
-    // public function timeLineList(){
-    //     $timelines = Timeline::latest()->get();
-    //     return view('timeline',[
-    //         'tweets' => $timelines,
-    //     ]);
-    // }
 
     public function sendPost(Request $req){
        
@@ -48,11 +43,27 @@ class HomeController extends Controller
             ]);
 
             Timeline::create([
-                'user_id' => Auth::user()->id,
                 'name' => Auth::user()->name,
                 'subtitle' => $req->subtitle,
             ]);
 
              return back();
     }
+     public function showSendRequest(){
+            //現在のuser取得
+        $name = \Auth::user()->name; 
+            //現在のuserとsenderが一致するものを取得
+        $showRequest = DB::table('timelines')
+            ->where(
+                'sender','=',$name )
+            ->get();
+            
+        return view('showRequestByMe',compact('showRequest'));
+    }
+        public function showDoneList(){
+            $showDone=x;
+           
+             return view('showDoneList',compact('showDone'));
+    
+        }
 }

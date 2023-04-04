@@ -9,8 +9,9 @@ class Timeline extends Model
 {
     
     protected $fillable = [
-        'user_id',
         'name',
+        'sender',
         'subtitle',
+        'body',
     ];
 }

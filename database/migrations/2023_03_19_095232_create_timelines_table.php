@@ -12,11 +12,12 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('timelines', function (Blueprint $table) {
-            $table->bigIncrements('id');
-            $table->Integer('user_id');   
+            $table->bigIncrements('id');   
             $table->string('name');
+            $table->string('sender')->nullable();
             $table->text('subtitle');
             $table->text('body')->nullable();
+            $table->softDeletes();
             $table->timestamps();
         });
     }
