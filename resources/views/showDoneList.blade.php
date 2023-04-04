@@ -11,7 +11,13 @@
                     Done一覧
                 </h1>
             </div>
-
+            @auth <form action="{{ route('oneDelete') }}" method="POST">
+                    {{ csrf_field() }}
+                    {{ method_field('DELETE') }}
+                    <button class="rounded bg-red-400 py-2 px-4 font-semibold text-white" type="submit" name="delete">
+                        一括消去</button>
+                </form>
+            @endauth
             <div class="panel-body">
                 <table class="table-striped task-table table">
                     <tbody>
@@ -22,10 +28,8 @@
                                         <div class="p-6 text-gray-900">
                                             <strong>{{ $sd->name }}</strong>さん
                                             <p class="text-right">{{ $sd->created_at }}</p>
-                                            {{ $sr->subtitle }}
-                                            @auth <a href="{{ route('detail', ['id' => $sd->id]) }}"
-                                                    class="rounded bg-sky-400 py-2 px-4 font-semibold text-white">Delete</a>
-                                            @endauth
+                                            {{ $sd->subtitle }}
+
                                         </div>
                                     </div>
                                 </div>

@@ -8,7 +8,7 @@
         </div>
         <div class="text-right">
             <!-- 削除ボタン -->
-            <form action="{{ url('timeline/' . $detail->id) }}" method="POST">
+            <form action="{{ route('delete', ['id' => $detail->id]) }}" method="POST">
                 {{ csrf_field() }}
                 {{ method_field('DELETE') }}
                 <button class="rounded bg-red-400 py-2 px-4 font-semibold text-white" type="submit" name="delete">
@@ -33,7 +33,7 @@
                             <!--投稿内容-->
                             <p>タイトル</p>
                             <label for="title" class="col-md-4 col-form-label text-md-end"></label>
-                            <input name="title" value="{{ $detail->subtitle }}" type="text">
+                            <input type="text" name="title" value="{{ $detail->subtitle }}" size="50" />
 
                             @if ($errors->has('title'))
                                 <p class="error-message">{{ $errors->first('title') }}</p>

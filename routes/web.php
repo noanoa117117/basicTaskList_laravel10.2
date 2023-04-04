@@ -3,6 +3,7 @@
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\DetailController;
+use App\Http\Controllers\DoneController;
 use App\Http\Controllers\SendRequestController;
 use Illuminate\Support\Facades\Route;
 use App\Models\Timeline;
@@ -19,7 +20,7 @@ use App\Models\Timeline;
 */
 
 Route::get('/', function () {
-    return view('welcome');
+    return view('2welcome');
 });
 
 
@@ -44,6 +45,8 @@ Route::get('/home', [HomeController::class, 'timelineHome'])->name('timeline');
 /*投稿*/ 
 Route::post('/home', [HomeController::class, 'sendPost'])->name('timeline');
 
+Route::get('/logout', 'Auth\LoginController@logout');
+
 /*detail画面遷移*/ 
 Route::get('/show/{id}', [DetailController::class, 'detail'])->name('detail');
 
@@ -51,7 +54,7 @@ Route::get('/show/{id}', [DetailController::class, 'detail'])->name('detail');
 Route::post('timeline/edit/{id}',[DetailController::class, 'update']);
     
 /*detail->delete処理*/ 
-Route::delete('/timeline/{id}',[DetailController::class, 'delete']);
+Route::delete('/delete/{id}',[DetailController::class, 'delete'])->name('delete');
 
  /* userにtask送信画面表示*/
 Route::get('/show_requestForm', [SendRequestController::class, 'showRequestForm'])->name('showRequestForm');
@@ -60,8 +63,14 @@ Route::get('/show_requestForm', [SendRequestController::class, 'showRequestForm'
 Route::post('/submit_request', [SendRequestController::class, 'submitRequest'])->name('submitRequest');
 
 /* userに送信したtask表示*/
-Route::get('/show_sendrequest', [HomeController::class, 'showSendRequest'])->name('showsendRequest');
+Route::get('/show_sendrequest', [SendRequestController::class, 'showSendRequest'])->name('showsendRequest');
+
+/*addDoneList */
+Route::delete('/addDonelist/{id}', [DoneController::class, 'addDoneList'])->name('addDoneList');
+
+/*DoneDelete1件 */
+Route::delete('/oneDelete', [DoneController::class, 'oneDeleteDone'])->name('oneDelete');
 
 /*DoneList表示 */
-Route::get('/showDoneList', [HomeController::class, 'showDoneList'])->name('doneList');
+Route::get('/showDoneList', [DoneController::class, 'showDoneList'])->name('doneList');
 require __DIR__.'/auth.php';

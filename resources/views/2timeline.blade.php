@@ -167,7 +167,15 @@
                                 <td>{{ $sub->subtitle }}</td>
                                 <td><a href="{{ route('detail', ['id' => $sub->id]) }}"
                                         class="rounded bg-sky-400 py-2 px-4 font-semibold text-white">詳細</a></td>
-                                <td>Done</td>
+                                <td>
+                                    <form action="{{ route('addDoneList', ['id' => $sub->id]) }}" method="POST">
+                                        {{ csrf_field() }}
+                                        {{ method_field('DELETE') }}
+                                        <button class="rounded bg-red-400 py-2 px-4 font-semibold text-white"
+                                            type="submit" name="delete">
+                                            Done</button>
+                                    </form>
+                                </td>
                         @endforeach
                         </tr>
 

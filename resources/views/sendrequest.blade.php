@@ -49,7 +49,7 @@
                                     <p class="alert alert-danger">{{ $errors->first('body') }}
                                 @endif
                                 <button class="rounded bg-rose-500 py-2 px-4 font-semibold text-white"
-                                    type="submit">Task申請</button>
+                                    type="submit">Task送信</button>
                             </div>
                         </td>
                     </tr>

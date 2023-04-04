@@ -36,4 +36,18 @@ class SendRequestController extends Controller
             ]);
         return redirect('/home');//依頼済み一覧
     }
+
+    public function showSendRequest(){
+            //現在のuser取得
+        $name = \Auth::user()->name; 
+            //現在のuserとsenderが一致するものを取得
+        $showRequest = \DB::table('timelines')
+            ->where(
+                'sender','=',$name )
+            ->where(
+                'deleted_at','=',NULL)
+            ->get();
+            
+        return view('showRequestByMe',compact('showRequest'));
+    }
 }

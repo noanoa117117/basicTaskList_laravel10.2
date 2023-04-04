@@ -49,21 +49,5 @@ class HomeController extends Controller
 
              return back();
     }
-     public function showSendRequest(){
-            //現在のuser取得
-        $name = \Auth::user()->name; 
-            //現在のuserとsenderが一致するものを取得
-        $showRequest = DB::table('timelines')
-            ->where(
-                'sender','=',$name )
-            ->get();
-            
-        return view('showRequestByMe',compact('showRequest'));
-    }
-        public function showDoneList(){
-            $showDone=x;
-           
-             return view('showDoneList',compact('showDone'));
-    
-        }
+     
 }

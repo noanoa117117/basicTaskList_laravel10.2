@@ -29,7 +29,7 @@ class DetailController extends Controller
     }
 
     public function delete(Request $req) {
-    Timeline::find($req->id)->delete();
+    Timeline::find($req->id)->forceDelete();
     return redirect('/home');
     }
 }
