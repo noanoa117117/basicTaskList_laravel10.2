@@ -113,36 +113,28 @@
     </head>
 
     <body class="bg-gray-100 leading-normal tracking-wider text-gray-900">
-
-
         <!--Container-->
         <div class="container mx-auto w-full px-2 md:w-4/5 xl:w-3/5">
-
             <!--Title-->
             <h1
                 class="flex items-center break-normal px-2 py-8 font-sans text-xl font-bold text-indigo-500 md:text-2xl">
                 User Task一覧
             </h1>
 
+            <!--add Task List -->
             {!! Form::open(['route' => 'timeline', 'method' => 'POST']) !!}
             {{ csrf_field() }}
-
-            <div class="form-group">
-
-
-                {{ Form::label('TaskListへ追加', null, ['class' => 'col-sm-3 control-label']) }}
-                <div class="col-sm-6">
-                    {{ Form::text('subtitle', null, ['class' => 'form-control', 'size' => '50']) }}
+            <div class="col-sm-6 mb-3 flex">
+                <input class="form-control mr-2 rounded border-gray-300 shadow-inner" size="50" name="subtitle"
+                    type="text">
+                <div class="form-group">
+                    <div class="row mb-0">
+                        <input class="rounded bg-orange-300 py-2 py-2 px-4 px-4 font-semibold text-white" type="submit"
+                            value="タスクリストに追加!">
+                    </div>
                     @if ($errors->has('subtitle'))
                         <p class="alert alert-danger">{{ $errors->first('subtitle') }}
                     @endif
-                </div>
-
-                <!--Add lanch Button -->
-                <div class="form-group">
-                    <div class="row mb-0">
-                        {{ Form::submit('タスクリストに追加!', ['class' => 'bg-orange-300 font-semibold text-white py-2 px-4 rounded']) }}
-                    </div>
                 </div>
             </div>
             {!! Form::close() !!}
@@ -166,7 +158,8 @@
                                 <td>{{ $sub->name }}</td>
                                 <td>{{ $sub->subtitle }}</td>
                                 <td><a href="{{ route('detail', ['id' => $sub->id]) }}"
-                                        class="rounded bg-sky-400 py-2 px-4 font-semibold text-white">詳細</a></td>
+                                        class="rounded bg-sky-400 py-2 px-4 font-semibold text-white">詳細</a>
+                                </td>
                                 <td>
                                     <form action="{{ route('addDoneList', ['id' => $sub->id]) }}" method="POST">
                                         {{ csrf_field() }}

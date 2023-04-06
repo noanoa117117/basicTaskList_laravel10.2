@@ -20,7 +20,7 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot(): void
     {
-        \Route::bind('trashed_text',function($id){
+        \Route::bind('trashed',function($id){
             return Timeline::onlyTrashed()->find($id);
         });
     }
