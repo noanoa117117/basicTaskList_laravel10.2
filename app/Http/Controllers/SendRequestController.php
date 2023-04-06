@@ -34,7 +34,7 @@ class SendRequestController extends Controller
                 'subtitle' => $req->subtitle,
                 'body' => $req->body,
             ]);
-        return redirect('/home');//依頼済み一覧
+        return redirect('/show_sendrequest');//依頼済み一覧
     }
 
     public function showSendRequest(){

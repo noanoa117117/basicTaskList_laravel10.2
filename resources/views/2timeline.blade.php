@@ -178,25 +178,11 @@
                                 </td>
                         @endforeach
                         </tr>
-
-                        <!-- Rest of your data (refer to https://datatables.net/examples/server_side/ for server side processing)-->
-
                     </tbody>
 
                 </table>
-
-
             </div>
-            <!--/Card-->
-
-
         </div>
-        <!--/container-->
-
-
-
-
-
         <!-- jQuery -->
         <script type="text/javascript" src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
 

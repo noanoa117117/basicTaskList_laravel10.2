@@ -20,8 +20,6 @@
     <nav class="navbar navbar-default">
         <div class="container">
 
-
-            <!--ログアウトのpath調整が必要-->
             <div
                 class="bg-dots-darker dark:bg-dots-lighter relative min-h-screen bg-gray-100 bg-center selection:bg-red-500 selection:text-white dark:bg-gray-900 sm:flex sm:items-center sm:justify-center">
 

@@ -73,4 +73,7 @@ Route::delete('/oneDelete', [DoneController::class, 'oneDeleteDone'])->name('one
 
 /*DoneList表示 */
 Route::get('/showDoneList', [DoneController::class, 'showDoneList'])->name('doneList');
+
+/*DoneListから復元 */
+Route::patch('/restore/{trashed_text}', [DoneController::class, 'restoreDone'])->name('restore');
 require __DIR__.'/auth.php';

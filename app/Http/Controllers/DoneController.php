@@ -24,8 +24,11 @@ class DoneController extends Controller
     }
     public function oneDeleteDone(){
         Timeline::onlyTrashed()->forceDelete();
-        
         return redirect('/showDoneList');
-    
+    }
+
+    public function restoreDone(Timeline $sd){
+        Timeline::onlyTrashed()->where('id',$sd->id)->restore();
+        return redirect()->route('timeline');
     }
 }

@@ -1,14 +1,11 @@
 <x-app-layout>
 
-    <!--current tasks-->
-
-
     @if (count($showDone) > 0)
         <div class="panel panel-default">
             <div class="panel-heading">
                 <h1
                     class="flex items-center break-normal px-2 py-8 font-sans text-xl font-bold text-indigo-500 md:text-2xl">
-                    Done一覧
+                    Done済み一覧
                 </h1>
             </div>
             @auth <form action="{{ route('oneDelete') }}" method="POST">
@@ -28,7 +25,16 @@
                                         <div class="p-6 text-gray-900">
                                             <strong>{{ $sd->name }}</strong>さん
                                             <p class="text-right">{{ $sd->created_at }}</p>
-                                            {{ $sd->subtitle }}
+                                            <p>{{ $sd->subtitle }}</p>
+
+                                            <div class=text-right>
+                                                <form action="{{ route('restore', $sd->id) }}" method="POST">
+                                                    @csrf
+                                                    @method('patch')
+                                                    <button type="submit"
+                                                        class="rounded bg-green-300 py-2 px-4 font-semibold text-white">復元</button>
+                                                </form>
+                                            </div>
 
                                         </div>
                                     </div>
