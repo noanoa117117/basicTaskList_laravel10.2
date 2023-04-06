@@ -11,9 +11,13 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('tasks', function (Blueprint $table) {
-            $table->id();
-            $table->string('name');/*追加*/
+        Schema::create('timelines', function (Blueprint $table) {
+            $table->bigIncrements('id');   
+            $table->string('name');
+            $table->string('sender')->nullable();
+            $table->text('subtitle');
+            $table->text('body')->nullable();
+            $table->softDeletes();
             $table->timestamps();
         });
     }
@@ -23,6 +27,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('tasks');
+        Schema::dropIfExists('timelines');
     }
 };

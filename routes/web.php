@@ -1,7 +1,12 @@
 <?php
-use App\Models\Task; 
+
+use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\HomeController;
+use App\Http\Controllers\DetailController;
+use App\Http\Controllers\DoneController;
+use App\Http\Controllers\SendRequestController;
 use Illuminate\Support\Facades\Route;
-use Illuminate\Http\Request;
+use App\Models\Timeline;
 
 /*
 |--------------------------------------------------------------------------
@@ -15,31 +20,60 @@ use Illuminate\Http\Request;
 */
 
 Route::get('/', function () {
-    $tasks = Task::orderBy('created_at', 'asc')->get();//ソート済みのタスク
+    return view('2welcome');
+});
+
+
+Route::get('/dashboard', function () {
+    return view('dashboard');
+})->middleware(['auth', 'verified'])->name('dashboard');
+
+Route::middleware('auth')->group(function () {
+    Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
+    Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
+    Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
+});
+/*テスト*/
+Route::get('/test',function(){
+    $tasks = Timeline::orderBy('created_at', 'asc')->get();
+        return view('showDoneList');
+});
+
+/*timeline一覧 */
+Route::get('/home', [HomeController::class, 'timelineHome'])->name('timeline');
+
+/*投稿*/ 
+Route::post('/home', [HomeController::class, 'sendPost'])->name('timeline');
+
+Route::get('/logout', 'Auth\LoginController@logout');
+
+/*detail画面遷移*/ 
+Route::get('/show/{id}', [DetailController::class, 'detail'])->name('detail');
+
+/*detail->update処理 */
+Route::post('timeline/edit/{id}',[DetailController::class, 'update']);
     
-    return view('tasks',[
-        'tasks'=> $tasks
-    ]);
-});
+/*detail->delete処理*/ 
+Route::delete('/delete/{id}',[DetailController::class, 'delete'])->name('delete');
 
-Route::post('/task', function (Request $request) {
-    $validator = Validator::make($request->all(), [
-        'name' => 'required|max:255',
-    ]);
-    if($validator->fails()){
-        return redirect('/')
-            ->withInput()
-            ->withErrores($validator);
-    }
-    $task = new Task;
-    $task->name = $request->input('name');
-    $task->save();
+ /* userにtask送信画面表示*/
+Route::get('/show_requestForm', [SendRequestController::class, 'showRequestForm'])->name('showRequestForm');
 
-    return redirect('/');
-});
+/* userにtask送信*/
+Route::post('/submit_request', [SendRequestController::class, 'submitRequest'])->name('submitRequest');
 
-Route::delete('/task/{task}', function (Task $task) {
-    $task->delete(); //暗黙の結合
+/* userに送信したtask表示*/
+Route::get('/show_sendrequest', [SendRequestController::class, 'showSendRequest'])->name('showsendRequest');
 
-    return redirect('/');
-});
+/*addDoneList */
+Route::delete('/addDonelist/{id}', [DoneController::class, 'addDoneList'])->name('addDoneList');
+
+/*DoneDelete1件 */
+Route::delete('/oneDelete', [DoneController::class, 'oneDeleteDone'])->name('oneDelete');
+
+/*DoneList表示 */
+Route::get('/showDoneList', [DoneController::class, 'showDoneList'])->name('doneList');
+
+/*DoneListから復元 */
+Route::patch('/restore/{trashed}', [DoneController::class, 'restoreDone'])->name('restore');
+require __DIR__.'/auth.php';
