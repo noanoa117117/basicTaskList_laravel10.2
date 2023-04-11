@@ -152,16 +152,16 @@
                         </tr>
                     </thead>
                     <tbody>
-                        @foreach ($subtitles as $sub)
+                        @foreach ($tasks as $tak)
                             <tr>
-                                <td>{{ $sub->created_at }}</td>
-                                <td>{{ $sub->name }}</td>
-                                <td>{{ $sub->subtitle }}</td>
-                                <td><a href="{{ route('detail', ['id' => $sub->id]) }}"
+                                <td>{{ $tak->created_at }}</td>
+                                <td>{{ $tak->name }}</td>
+                                <td>{{ $tak->subtitle }}</td>
+                                <td><a href="{{ route('detail', ['id' => $tak->id]) }}"
                                         class="rounded bg-sky-400 py-2 px-4 font-semibold text-white">詳細</a>
                                 </td>
                                 <td>
-                                    <form action="{{ route('addDoneList', ['id' => $sub->id]) }}" method="POST">
+                                    <form action="{{ route('addDoneList', ['id' => $tak->id]) }}" method="POST">
                                         {{ csrf_field() }}
                                         {{ method_field('DELETE') }}
                                         <button class="rounded bg-red-400 py-2 px-4 font-semibold text-white"

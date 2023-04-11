@@ -30,10 +30,8 @@ class HomeController extends Controller
      
     public function timelineHome()
     {
-        $tasks = Timeline::orderBy('created_at', 'asc')->get();
-        return view('2timeline', [
-            'subtitles' => $tasks
-        ]);
+        $tasks = Timeline::all();
+        return view('2timeline', compact('tasks'));
     }
 
     public function sendPost(Request $req){
@@ -43,6 +41,7 @@ class HomeController extends Controller
             ]);
 
             Timeline::create([
+                'user_id'=>Auth::user()->id,
                 'name' => Auth::user()->name,
                 'subtitle' => $req->subtitle,
             ]);

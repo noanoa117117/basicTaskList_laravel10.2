@@ -33,11 +33,11 @@ Route::middleware('auth')->group(function () {
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 });
-/*テスト*/
+/*テスト
 Route::get('/test',function(){
     $tasks = Timeline::orderBy('created_at', 'asc')->get();
         return view('showDoneList');
-});
+});*/
 
 /*timeline一覧 */
 Route::get('/home', [HomeController::class, 'timelineHome'])->name('timeline');

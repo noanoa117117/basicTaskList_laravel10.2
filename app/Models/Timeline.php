@@ -10,9 +10,14 @@ class Timeline extends Model
 {
     use SoftDeletes;
     protected $fillable = [
+        'user_id',
         'name',
         'sender',
         'subtitle',
         'body',
     ];
+
+    public function user(){
+        return $this->belongsTo(User::class);
+    }
 }
