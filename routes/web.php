@@ -45,6 +45,9 @@ Route::get('/home', [HomeController::class, 'timelineHome'])->name('timeline');
 /*投稿*/ 
 Route::post('/home', [HomeController::class, 'sendPost'])->name('timeline');
 
+/*検索*/ 
+Route::get('/home/serch', [HomeController::class, 'serch'])->name('serch');
+
 Route::get('/logout', 'Auth\LoginController@logout');
 
 /*detail画面遷移*/ 

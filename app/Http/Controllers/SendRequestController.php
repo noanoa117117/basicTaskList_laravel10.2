@@ -31,8 +31,8 @@ class SendRequestController extends Controller
             ]);
 
             $userId = User::groupBy('id')
-            ->where('name','=',$req->name)
-            ->value('id');
+                ->where('name','=',$req->name)
+                ->value('id');
             
             Timeline::create([
                 'name' => $req->name,

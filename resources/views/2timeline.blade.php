@@ -129,7 +129,7 @@
                     type="text">
                 <div class="form-group">
                     <div class="row mb-0">
-                        <input class="rounded bg-orange-300 py-2 py-2 px-4 px-4 font-semibold text-white" type="submit"
+                        <input class="rounded bg-orange-300 py-2 px-4 font-semibold text-white" type="submit"
                             value="タスクリストに追加!">
                     </div>
                     @if ($errors->has('subtitle'))
@@ -142,6 +142,21 @@
             <!--Card-->
             <div id='recipients' class="mt-6 rounded bg-white p-8 shadow lg:mt-0">
                 <table id="example" class="stripe hover" style="width:100%; padding-top: 1em;  padding-bottom: 1em;">
+                    {{-- 検索ボタン --}}
+                    {{-- {!! Form::open(['route' => 'serch', 'method' => 'GET']) !!}
+                    {{ csrf_field() }}
+                    <div>
+                        <label for="">キーワード
+                            <input type="text" name="keyword" value="">
+                        </label>
+                        <input class="m-4 rounded bg-purple-300 py-2 px-4 font-semibold text-white" type="submit"
+                            value="検索!"></label>
+                    </div>
+                    @if ($errors->has('keyword'))
+                        <p class="alert alert-danger">{{ $errors->first('keyword') }}
+                    @endif
+                    {!! Form::close() !!} --}}
+
                     <thead>
                         <tr>
                             <th data-priority="1">created_at</th>
@@ -172,8 +187,8 @@
                                     </td>
                                 @else
                                 @endif
+                            </tr>
                         @endforeach
-                        </tr>
                     </tbody>
 
                 </table>
