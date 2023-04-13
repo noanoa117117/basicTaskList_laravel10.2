@@ -14,6 +14,7 @@ return new class extends Migration
         Schema::create('timelines', function (Blueprint $table) {
             $table->bigIncrements('id');   
             $table->string('name');
+            $table->foreignId('user_id')->constrained('users');
             $table->string('sender')->nullable();
             $table->text('subtitle');
             $table->text('body')->nullable();

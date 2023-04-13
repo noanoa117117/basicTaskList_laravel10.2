@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 use App\Models\Timeline;
+use App\Models\User;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Foundation\Validation\ValidatesRequests;
 use Illuminate\Support\Facades\DB;
@@ -29,11 +30,12 @@ class HomeController extends Controller
 
      
     public function timelineHome()
-    {
-        $tasks = Timeline::orderBy('created_at', 'asc')->get();
-        return view('2timeline', [
-            'subtitles' => $tasks
-        ]);
+    {   
+        $keyword="";
+        $allUsers = User::groupBy('name')->get('name');
+        $tasks = Timeline::orderBy('id','desc')->get();
+         return view('2timeline', compact('tasks','allUsers','keyword'));
+         
     }
 
     public function sendPost(Request $req){
@@ -43,6 +45,7 @@ class HomeController extends Controller
             ]);
 
             Timeline::create([
+                'user_id'=>Auth::user()->id,
                 'name' => Auth::user()->name,
                 'subtitle' => $req->subtitle,
             ]);
@@ -50,4 +53,20 @@ class HomeController extends Controller
              return back();
     }
      
+    public function serch(Request $req){
+         $req->validate([
+                'keyword' => 'required',
+            ]);
+       $keyword = $req->keyword;
+        $query = Timeline::query();
+
+        if(!empty($keyword)) {
+            $query->Where('subtitle', 'LIKE', "%{$keyword}%");
+        }
+
+        $tasks = $query->get();
+        $allUsers = User::groupBy('name')->get('name');
+        
+        return view('2timeline',compact('tasks','allUsers'));
+    }
 }

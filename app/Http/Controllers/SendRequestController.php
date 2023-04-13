@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 use App\Models\Timeline;
+use App\Models\User;
 
 use Illuminate\Http\Request;
 
@@ -15,7 +16,7 @@ class SendRequestController extends Controller
      public function showRequestForm()
     {   /*現在のLoginUserを取り出し、除外*/ 
         $user = \Auth::user()->name;
-         $allUsers = Timeline::groupBy('name')
+         $allUsers = User::groupBy('name')
             ->where('name','!=',$user)
             ->get(['name']);
 
@@ -28,8 +29,14 @@ class SendRequestController extends Controller
                 'subtitle' => 'required|max:50',
                 'body' => 'max:500',
             ]);
+
+            $userId = User::groupBy('id')
+                ->where('name','=',$req->name)
+                ->value('id');
+            
             Timeline::create([
                 'name' => $req->name,
+                'user_id' => $userId,
                 'sender' => \Auth::user()->name,
                 'subtitle' => $req->subtitle,
                 'body' => $req->body,

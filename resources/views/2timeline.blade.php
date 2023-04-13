@@ -129,7 +129,7 @@
                     type="text">
                 <div class="form-group">
                     <div class="row mb-0">
-                        <input class="rounded bg-orange-300 py-2 py-2 px-4 px-4 font-semibold text-white" type="submit"
+                        <input class="rounded bg-orange-300 py-2 px-4 font-semibold text-white" type="submit"
                             value="タスクリストに追加!">
                     </div>
                     @if ($errors->has('subtitle'))
@@ -152,25 +152,33 @@
                         </tr>
                     </thead>
                     <tbody>
-                        @foreach ($subtitles as $sub)
+                        @foreach ($tasks as $tak)
                             <tr>
-                                <td>{{ $sub->created_at }}</td>
-                                <td>{{ $sub->name }}</td>
-                                <td>{{ $sub->subtitle }}</td>
-                                <td><a href="{{ route('detail', ['id' => $sub->id]) }}"
-                                        class="rounded bg-sky-400 py-2 px-4 font-semibold text-white">詳細</a>
+                                <td>{{ $tak->created_at }}</td>
+                                <td>{{ $tak->name }}</td>
+                                <td>{{ $tak->subtitle }}</td>
+                                <td>
+                                    @if ($tak->user_id == Auth::id())
+                                        <a href="{{ route('detail', ['id' => $tak->id]) }}"
+                                            class="rounded bg-sky-400 py-2 px-4 font-semibold text-white">詳細</a>
+                                    @else
+                                    @endif
                                 </td>
                                 <td>
-                                    <form action="{{ route('addDoneList', ['id' => $sub->id]) }}" method="POST">
-                                        {{ csrf_field() }}
-                                        {{ method_field('DELETE') }}
-                                        <button class="rounded bg-red-400 py-2 px-4 font-semibold text-white"
-                                            type="submit" name="delete">
-                                            Done</button>
-                                    </form>
+                                    @if ($tak->user_id == Auth::id())
+                                        <form action="{{ route('addDoneList', ['id' => $tak->id]) }}" method="POST">
+                                            {{ csrf_field() }}
+                                            {{ method_field('DELETE') }}
+                                            <button class="rounded bg-red-400 py-2 px-4 font-semibold text-white"
+                                                type="submit" name="delete">
+                                                Done</button>
+                                        </form>
+                                    @else
+                                    @endif
                                 </td>
+
+                            </tr>
                         @endforeach
-                        </tr>
                     </tbody>
 
                 </table>

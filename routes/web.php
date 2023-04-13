@@ -33,17 +33,20 @@ Route::middleware('auth')->group(function () {
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 });
-/*テスト*/
+/*テスト
 Route::get('/test',function(){
     $tasks = Timeline::orderBy('created_at', 'asc')->get();
         return view('showDoneList');
-});
+});*/
 
 /*timeline一覧 */
 Route::get('/home', [HomeController::class, 'timelineHome'])->name('timeline');
 
 /*投稿*/ 
 Route::post('/home', [HomeController::class, 'sendPost'])->name('timeline');
+
+/*検索*/ 
+Route::get('/home/serch', [HomeController::class, 'serch'])->name('serch');
 
 Route::get('/logout', 'Auth\LoginController@logout');
 
