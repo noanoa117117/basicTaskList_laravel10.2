@@ -36,7 +36,7 @@
             </div>
         </div>
     @else
-        <p>依頼したtaskは完了してます</p>
+        <p>依頼したtaskはありません</p>
     @endif
     </div>
     </div>
