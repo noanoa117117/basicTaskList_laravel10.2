@@ -8,13 +8,15 @@
                     Done済み一覧
                 </h1>
             </div>
-            @auth <form action="{{ route('oneDelete') }}" method="POST">
-                    {{ csrf_field() }}
-                    {{ method_field('DELETE') }}
-                    <button class="rounded bg-red-400 py-2 px-4 font-semibold text-white" type="submit" name="delete">
-                        一括消去</button>
-                </form>
-            @endauth
+            <div class="px-20 py-4">
+                @auth <form action="{{ route('oneDelete') }}" method="POST">
+                        {{ csrf_field() }}
+                        {{ method_field('DELETE') }}
+                        <button class="rounded bg-red-400 py-2 px-4 font-semibold text-white" type="submit" name="delete">
+                            一括消去</button>
+                    </form>
+                @endauth
+            </div>
             <div class="panel-body">
                 <table class="table-striped task-table table">
                     <tbody>
@@ -35,7 +37,6 @@
                                                         class="rounded bg-green-300 py-2 px-4 font-semibold text-white">復元</button>
                                                 </form>
                                             </div>
-
                                         </div>
                                     </div>
                                 </div>
@@ -48,6 +49,4 @@
     @else
         <p>DoneListは空です</p>
     @endif
-    </div>
-    </div>
     </x-app>

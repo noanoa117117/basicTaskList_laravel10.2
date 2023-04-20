@@ -15,13 +15,13 @@
     @vite(['resources/css/app.css', 'resources/js/app.js'])
 </head>
 
-<body>
+<body class="dark:bg-gray-800">
 
     <nav class="navbar navbar-default">
         <div class="container">
 
             <div
-                class="bg-dots-darker dark:bg-dots-lighter relative min-h-screen bg-gray-100 bg-center selection:bg-red-500 selection:text-white dark:bg-gray-900 sm:flex sm:items-center sm:justify-center">
+                class="bg-dots-darker dark:bg-dots-lighter relative min-h-screen bg-center selection:bg-red-500 selection:text-white sm:items-center sm:justify-center">
 
                 <div class="p-6 text-right sm:fixed sm:top-0 sm:right-0">
 
@@ -34,7 +34,7 @@
                     @endif
                 </div>
                 <!--子ページの内容-->
-                @yield('welcome')
+                {{ $welcome }}
 
             </div>
         </div>
