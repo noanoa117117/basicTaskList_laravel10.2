@@ -15,7 +15,7 @@
     @vite(['resources/css/app.css', 'resources/js/app.js'])
 </head>
 
-<body class="dark:bg-gray-800">
+<body>
 
     <nav class="navbar navbar-default">
         <div class="container">
@@ -26,11 +26,11 @@
                 <div class="p-6 text-right sm:fixed sm:top-0 sm:right-0">
 
                     <a href="{{ route('login') }}"
-                        class="font-semibold text-gray-600 hover:text-gray-900 focus:rounded-sm focus:outline focus:outline-2 focus:outline-red-500 dark:text-gray-400 dark:hover:text-white">ログイン</a>
+                        class="font-semibold text-orange-400 hover:text-orange-700 focus:rounded-sm focus:outline focus:outline-2 focus:outline-red-500">ログイン</a>
 
                     @if (Route::has('register'))
                         <a href="{{ route('register') }}"
-                            class="ml-4 font-semibold text-gray-600 hover:text-gray-900 focus:rounded-sm focus:outline focus:outline-2 focus:outline-red-500 dark:text-gray-400 dark:hover:text-white">User登録</a>
+                            class="ml-4 font-semibold text-orange-400 hover:text-orange-700 focus:rounded-sm focus:outline focus:outline-2 focus:outline-red-500">User登録</a>
                     @endif
                 </div>
                 <!--子ページの内容-->

@@ -1,8 +1,10 @@
 {
     "Register": "ユーザー登録",
     "Login":"ログイン",
+    "Log in":"ログイン",
     "Email Address":"Emailアドレス",
-    "Password":"パスワード",
+    "Email":"Email(test1@test.com)",
+    "Password":"パスワード(12345678)",
     "Name":"名前",
     "Confirm Password":"パスワード再入力",
     "Dashboard":"UserTask一覧",
