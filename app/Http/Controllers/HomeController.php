@@ -52,21 +52,36 @@ class HomeController extends Controller
 
              return back();
     }
-     
-    public function serch(Request $req){
-         $req->validate([
-                'keyword' => 'required',
-            ]);
-       $keyword = $req->keyword;
-        $query = Timeline::query();
 
-        if(!empty($keyword)) {
-            $query->Where('subtitle', 'LIKE', "%{$keyword}%");
-        }
-
-        $tasks = $query->get();
-        $allUsers = User::groupBy('name')->get('name');
-        
-        return view('2timeline',compact('tasks','allUsers'));
+    public function myTaskShow(){
+        //現在のuser取得
+        $name = \Auth::user()->name; 
+            //現在のuserとsenderが一致するものを取得
+        $showMyTask = \DB::table('timelines')
+            ->where(
+                'sender','!=',NULL)
+            ->where(
+                'name','=',$name)
+            ->get();
+            
+        return view('myTaskShow',compact('showMyTask'));
     }
+     
+    // public function serch(Request $req){
+    //      $req->validate([
+    //             'keyword' => 'required',
+    //         ]);
+    //    $keyword = $req->keyword;
+    //     $query = Timeline::query();
+
+    //     if(!empty($keyword)) {
+    //         $query->Where('subtitle', 'LIKE', "%{$keyword}%");
+    //     }
+
+    //     $tasks = $query->get();
+    //     $allUsers = User::groupBy('name')->get('name');
+        
+    //     return view('2timeline',compact('tasks','allUsers'));
+    // }
+
 }

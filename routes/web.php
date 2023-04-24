@@ -59,6 +59,9 @@ Route::post('timeline/edit/{id}',[DetailController::class, 'update']);
 /*detail->delete処理*/ 
 Route::delete('/delete/{id}',[DetailController::class, 'delete'])->name('delete');
 
+/*依頼されたTask表示*/
+Route::get('/show_myTask', [HomeController::class, 'myTaskShow'])->name('myTaskShow'); 
+
  /* userにtask送信画面表示*/
 Route::get('/show_requestForm', [SendRequestController::class, 'showRequestForm'])->name('showRequestForm');
 
