@@ -10,13 +10,12 @@
             <!--add Task List -->
             {!! Form::open(['route' => 'timeline', 'method' => 'POST']) !!}
             {{ csrf_field() }}
-            <div class="col-sm-6 mb-3 flex">
+            <div class="sm:-my-px sm:ml-10 sm:flex">
                 <input class="form-control mr-2 rounded border-gray-300 shadow-inner" size="50" name="subtitle"
                     type="text">
                 <div class="form-group">
                     <div class="row mb-0">
-                        <input class="rounded bg-orange-300 py-2 px-4 font-semibold text-white" type="submit"
-                            value="タスクリストに追加!">
+                        <input class="rounded bg-orange-300 font-semibold text-white" type="submit" value="タスクリストに追加!">
                     </div>
                     @if ($errors->has('subtitle'))
                         <p class="alert alert-danger">{{ $errors->first('subtitle') }}
@@ -30,7 +29,7 @@
                 <table id="example" class="stripe hover" style="width:100%; padding-top: 1em;  padding-bottom: 1em;">
                     <thead>
                         <tr>
-                            <th data-priority="1">created_at</th>
+                            <th class="hidden" data-priority="1">created_at</th>
                             <th data-priority="2">Name</th>
                             <th data-priority="3">subtitle</th>
                             <th data-priority="4">edit</th>
@@ -40,7 +39,7 @@
                     <tbody>
                         @foreach ($tasks as $tak)
                             <tr>
-                                <td>{{ $tak->created_at }}</td>
+                                <td class="hidden">{{ $tak->created_at }}</td>
                                 <td>{{ $tak->name }}</td>
                                 <td>{{ $tak->subtitle }}</td>
                                 <td>
@@ -55,7 +54,7 @@
                                         <form action="{{ route('addDoneList', ['id' => $tak->id]) }}" method="POST">
                                             {{ csrf_field() }}
                                             {{ method_field('DELETE') }}
-                                            <button class="rounded bg-red-400 py-2 px-4 font-semibold text-white"
+                                            <button class="rounded bg-green-400 py-2 px-4 font-semibold text-white"
                                                 type="submit" name="delete">
                                                 Done</button>
                                         </form>

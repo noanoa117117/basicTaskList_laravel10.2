@@ -48,12 +48,17 @@
         </tbody>
     </table>
     <div class="px-3">
-        <form action="{{ route('delete', ['id' => $detail->id]) }}" method="POST">
+        <form action="{{ route('addDoneList', ['id' => $detail->id]) }}" method="POST">
             {{ csrf_field() }}
             {{ method_field('DELETE') }}
-            <button class="rounded bg-red-400 py-2 px-10 font-semibold text-white" type="submit" name="delete">
-                消去</button>
-        </form>
+            <button class="rounded bg-green-400 py-2 px-4 font-semibold text-white" type="submit" name="delete">
+                Done</button>
+            <form action="{{ route('delete', ['id' => $detail->id]) }}" method="POST">
+                {{ csrf_field() }}
+                {{ method_field('DELETE') }}
+                <button class="rounded bg-red-400 py-2 px-10 font-semibold text-white" type="submit" name="delete">
+                    消去</button>
+            </form>
     </div>
 
     </x-app>

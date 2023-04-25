@@ -7,7 +7,7 @@
     "Password":"パスワード(12345678)",
     "Name":"名前",
     "Confirm Password":"パスワード再入力",
-    "Dashboard":"UserTask一覧",
+    "Dashboard":"Task一覧",
     "myTaskShow":"依頼されたTask",
     "sendreq":"Task送信",
     "showreq":"送信済みTask一覧",
